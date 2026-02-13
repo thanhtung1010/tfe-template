@@ -1,0 +1,25 @@
+{
+    "SETTING": {
+        "THEME": "Theme",
+        "LANG": "Lang"
+    },
+    "ROUTER": {
+        "HOME": "Home",
+        "SEARCH_SELECTION": "Search & Selection",
+        "AUTOCOMPLETE": "Autocomplete",
+        "LISTBOX": "Listbox",
+        "SELECT": "Select",
+        "MULTISELECT": "Multiselect",
+        "COMBOBOX": "Combobox",
+        "NAVIGATION": "Navigation",
+        "MENU": "Menu",
+        "MENUBAR": "Menubar",
+        "TOOLBAR": "Toolbar",
+        "CONTENT": "Content",
+        "ACCORDION": "Accordion",
+        "TABS": "Tabs",
+        "TREE": "Tree",
+        "GRID": "Grid"
+    },
+    "PAGE_TITLE": "TFE - Template | Trinh Thanh Tung"
+}

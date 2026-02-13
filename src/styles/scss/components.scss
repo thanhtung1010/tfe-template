@@ -1,0 +1,55 @@
+@use "variable" as var;
+@reference "tailwindcss";
+
+@layer components {
+    .#{var.$primary-prefix-cls} {
+
+        &-setting {
+            @apply fixed bottom-5 right-5 w-fit h-fit z-9999;
+
+            &-wrapper {
+                @apply relative w-15 h-15 overflow-visible z-0;
+            }
+
+            &-button {
+                @apply relative w-full h-full cursor-pointer border-4 border-(--border-color) rounded-4xl z-2;
+            }
+
+            &-menu {
+                @apply absolute bottom-0 right-0 z-1 border-4 w-40 h-50 overflow-y-auto overflow-x-hidden border-(--border-color) rounded-4xl bg-(--bg-color) p-3;
+            }
+
+            &-item {
+                @apply flex items-center justify-between gap-2 font-semibold min-w-30 mb-1;
+            }
+        }
+
+        &-cat-loading {
+            @apply fixed bottom-0 left-1/2 -translate-x-1/2 z-99999;
+        }
+
+        &-bg-cat-loading {
+            @apply fixed bottom-0 left-0 w-full h-full backdrop-blur-md z-99998;
+        }
+
+        &-hidden-scroll {
+            @apply overflow-hidden!;
+        }
+
+        &-liquid {
+            @apply relative;
+
+            &-effect {
+                @apply absolute z-0 inset-0 backdrop-blur-[3px] filter-[url(#glass-distortion)] overflow-hidden isolate;
+            }
+
+            &-tint {
+                @apply z-10 absolute inset-0 bg-white/25;
+            }
+
+            &-shine {
+                @apply absolute inset-0 z-20 overflow-hidden shadow-[inset_2px_2px_1px_0_rgba(255,255,255,0.5),inset_-1px_-1px_1px_1px_rgba(255,255,255,0.5)];
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<div class="flex flex-col px-2 py-4 overflow-y-auto overflow-x-hidden *:transition-all *:duration-500">
+    @for (item of menu.items(); track $index) {
+        <tfe-aside-item [item]="item" (click)="item.children ? item.extend = !item.extend : null"></tfe-aside-item>
+
+        @if (item.extend) {
+            @for (subItem of item.children; track $index) {
+                <tfe-aside-item [item]="subItem" (click)="subItem.children ? subItem.extend = !subItem.extend : null"></tfe-aside-item>
+            }
+        }
+    }
+</div>

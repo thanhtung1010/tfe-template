@@ -1,0 +1,25 @@
+{
+    "SETTING": {
+        "THEME": "Giao diện",
+        "LANG": "Ngôn ngữ"
+    },
+    "ROUTER": {
+        "HOME": "Trang chủ",
+        "SEARCH_SELECTION": "Tìm kiếm & Lựa chọn",
+        "AUTOCOMPLETE": "Tự động hoàn thành",
+        "LISTBOX": "Danh sách hộp",
+        "SELECT": "Lựa chọn",
+        "MULTISELECT": "Đa lựa chọn",
+        "COMBOBOX": "Hộp combo",
+        "NAVIGATION": "Điều hướng",
+        "MENU": "Menu",
+        "MENUBAR": "Thanh menu",
+        "TOOLBAR": "Thanh công cụ",
+        "CONTENT": "Nội dung",
+        "ACCORDION": "Accordion",
+        "TABS": "Tabs",
+        "TREE": "Cây",
+        "GRID": "Lưới"
+    },
+    "PAGE_TITLE": "TFE - Template | Trịnh Thanh Tùng"
+}

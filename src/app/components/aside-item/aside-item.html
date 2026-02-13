@@ -1,0 +1,9 @@
+@if (item.children && item.children.length > 0) {
+    <div class="aside-item cursor-pointer py-2" [style.paddingLeft.px]="padding">
+        {{ item.title | translate }}
+    </div>
+} @else {
+    <div class="aside-item cursor-pointer py-2" routerLinkActive="router-active" [routerLink]="item.path" [style.paddingLeft.px]="padding">
+        {{ item.title | translate }}
+    </div>
+}
