@@ -44,9 +44,8 @@ export class SvgLoaderComponent implements OnChanges {
     private _elementRef: ElementRef = inject(ElementRef<HTMLElement>);
     private _sanitizer: DomSanitizer = inject(DomSanitizer);
     private readonly defaultSize: number = 24;
-    private readonly assetsPath: string = '/assets/svgs/';
+    private readonly assetsPath: string = '/assets/svg/';
     protected svgContent = signal('');
-    protected state = signal<'init' | 'loading' | 'loaded' | 'error'>('init');
 
     constructor() {
         effect(() => {
@@ -145,9 +144,11 @@ export class SvgLoaderComponent implements OnChanges {
         if (this.width) {
             if (typeof this.width === 'number') {
                 svgEl.style.width = `${this.width}px`;
-                svgEl.style.height = `auto`;
             } else {
                 svgEl.style.width = this.width;
+            }
+
+            if (!this.height) {
                 svgEl.style.height = `auto`;
             }
             return svgEl;
@@ -156,9 +157,11 @@ export class SvgLoaderComponent implements OnChanges {
         if (this.height) {
             if (typeof this.height === 'number') {
                 svgEl.style.height = `${this.height}px`;
-                svgEl.style.width = `auto`;
             } else {
                 svgEl.style.height = this.height;
+            }
+
+            if (!this.width) {
                 svgEl.style.width = `auto`;
             }
             return svgEl;
