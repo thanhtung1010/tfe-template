@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from '@components';
 import { TranslateService } from '@ngx-translate/core';
-import { ConsoleGuardService, LanguageService, LayoutService, MenuService } from '@services';
+import { ConsoleGuardService, LanguageService, LayoutService, MenuService, SvgLoaderService } from '@services';
 import { skip, debounceTime } from 'rxjs';
 
 @Component({
@@ -21,6 +21,7 @@ export class App implements AfterViewInit {
         'https://lottie.host/9b524a98-c3d4-415f-b4f3-a79bf4c3d395/b1FArc0UlB.lottie'
     );
     private _timeoutLoading!: NodeJS.Timeout;
+    private _spriteUrl: string = '/assets/svg/sprite.svg';
 
     protected readonly destroyRef = inject(DestroyRef);
     protected readonly languageService = inject(LanguageService);
@@ -29,11 +30,15 @@ export class App implements AfterViewInit {
     protected readonly translateService = inject(TranslateService);
     protected readonly consoleGuardService = inject(ConsoleGuardService);
     protected readonly menuService = inject(MenuService);
+    protected readonly svgLoaderService = inject(SvgLoaderService);
 
     constructor() {
         this.languageService.init();
         this.consoleGuardService.init();
         this.menuService.init();
+        if (this.layoutService.isBrowser()) {
+            this.svgLoaderService.loadSprite(this._spriteUrl);
+        }
     }
 
     ngAfterViewInit(): void {

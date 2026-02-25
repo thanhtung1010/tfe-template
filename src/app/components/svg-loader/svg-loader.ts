@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     Component,
     effect,
     ElementRef,
@@ -18,15 +17,21 @@ import { SvgLoaderService } from '@services';
     standalone: true,
     templateUrl: './svg-loader.html',
 })
-export class SvgLoaderComponent implements AfterViewInit, OnChanges {
-    @Input({required: true})
-    get src(): string {
+export class SvgLoaderComponent implements OnChanges {
+    @Input()
+    get src(): string | undefined {
         return this._src;
     }
-    set src(value: string) {
-        this._src = this._mapSrc(value);
+    set src(value: string | undefined) {
+        if (value) {
+            this._src = this._mapSrc(value);
+        } else {
+            this._src = undefined;
+        }
     }
-    private _src!: string;
+    private _src?: string;
+
+    @Input() name?: string;
 
     @Input() size!: number | string;
     @Input() width!: number | string;
@@ -41,6 +46,7 @@ export class SvgLoaderComponent implements AfterViewInit, OnChanges {
     private readonly defaultSize: number = 24;
     private readonly assetsPath: string = '/assets/svgs/';
     protected svgContent = signal('');
+    protected state = signal<'init' | 'loading' | 'loaded' | 'error'>('init');
 
     constructor() {
         effect(() => {
@@ -53,13 +59,13 @@ export class SvgLoaderComponent implements AfterViewInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['src']?.currentValue) {
             this._loadSvg();
-        } else if (!changes['src']?.currentValue) {
-            this._clear();
+        } else {
+            if (changes['name']?.currentValue) {
+                this._renderSvg();
+            } else {
+                this._clear();
+            }
         }
-    }
-
-    ngAfterViewInit() {
-        this._loadSvg();
     }
 
     private _clear() {
@@ -89,16 +95,25 @@ export class SvgLoaderComponent implements AfterViewInit, OnChanges {
 
     private _renderSvg() {
         this._clear();
-        const svgContent = this._sanitizer.bypassSecurityTrustHtml(this.svgContent());
-        if (!svgContent) {
-            this._showErrorIcon();
-            return;
+        let svgEl!: SVGElement;
+
+        if (this.src) {
+            const svgContent = this._sanitizer.bypassSecurityTrustHtml(this.svgContent());
+            if (!svgContent) {
+                this._showErrorIcon();
+                return;
+            }
+
+            const div = this._renderer.createElement('div');
+            div.innerHTML = svgContent;
+            svgEl = div.querySelector('svg');
+        } else if (this.name) {
+            svgEl = this._renderer.createElement('svg', 'http://www.w3.org/2000/svg');
+            const useEl: SVGUseElement = this._renderer.createElement('use', 'http://www.w3.org/2000/svg');
+            useEl.setAttribute('href', `#${this.name}`);
+            svgEl.appendChild(useEl);
         }
 
-        const div = this._renderer.createElement('div');
-        div.innerHTML = svgContent;
-
-        let svgEl: SVGElement = div.querySelector('svg');
         if (!svgEl) return;
 
         svgEl = this._svgSize(svgEl);

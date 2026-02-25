@@ -26,7 +26,8 @@ export const MENU: IRouter[] = [
     {
         path: ROUTERS.HOME,
         title: 'ROUTER.HOME',
-        level: 1
+        level: 1,
+        icon: 'home',
     },
     {
         path: ROUTERS.SEARCH_SELECTION,

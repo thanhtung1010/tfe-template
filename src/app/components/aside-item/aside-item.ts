@@ -2,11 +2,12 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { IRouter } from '@interfaces';
 import { TranslateModule } from '@ngx-translate/core';
+import { SvgLoaderComponent } from '../svg-loader/svg-loader';
 
 @Component({
     selector: 'tfe-aside-item',
     templateUrl: './aside-item.html',
-    imports: [RouterLinkActive, RouterLink, TranslateModule]
+    imports: [RouterLinkActive, RouterLink, TranslateModule, SvgLoaderComponent]
 })
 export class AsideItemComponent implements OnChanges {
     @Input({ required: true }) item!: IRouter;

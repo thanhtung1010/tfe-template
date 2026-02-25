@@ -129,6 +129,7 @@ export class MenuService {
             title,
             level,
             extend: false,
+            icon: router.icon,
             children: children
                 ? children.map((child) => this._genMenuItem(child, newPath))
                 : undefined,

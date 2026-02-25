@@ -11,6 +11,7 @@ export class SvgLoaderService {
     private readonly _sanitizer = inject(DomSanitizer);
     private readonly _cache = new Map<string, string>();
     private readonly _inProgressRequests = new Map<string, Observable<string>>();
+    private _spriteLoaded = false;
 
     getSvg(url: string): Observable<string> {
         const cached = this._cache.get(url);
@@ -37,5 +38,19 @@ export class SvgLoaderService {
         return this.getSvg(url).pipe(
             map((svg) => this._sanitizer.bypassSecurityTrustHtml(svg))
         );
+    }
+
+    loadSprite(url: string): void {
+        if (this._spriteLoaded) return;
+
+        this.getSvg(url).subscribe(svgRaw => {
+            const div = document.createElement('div');
+            div.innerHTML = svgRaw;
+            const svg = div.querySelector('svg');
+            if (svg) {
+                document.body.insertBefore(svg, document.body.firstChild);
+            }
+            this._spriteLoaded = true;
+        });
     }
 }
